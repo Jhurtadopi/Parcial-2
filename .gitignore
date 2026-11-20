@@ -1,0 +1,10 @@
+# Credenciales
+.env
+# Índices (se regeneran desde el corpus)
+indices/
+# Python / Jupyter
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+# Herramientas de IA (las skills no van en el repositorio)
+.claude/

@@ -1,0 +1,189 @@
+{
+ "fecha": "2026-11-16T23:38:58.146415+00:00",
+ "python": "3.14.10",
+ "plataforma": "Linux-7.3.4-1-cachyos-x86_64-with-glibc2.44",
+ "colab": false,
+ "gpu": false,
+ "paquetes": {
+  "sentence-transformers": "6.3.0",
+  "transformers": "5.23.0",
+  "torch": "2.15.0+cpu",
+  "pypdf": "7.1.0",
+  "python-docx": "1.2.0",
+  "rank-bm25": "0.2.2",
+  "openai": "3.52.0",
+  "numpy": "2.5.5",
+  "pandas": "3.1.1"
+ },
+ "modelos": {
+  "emb_principal": "intfloat/multilingual-e5-small",
+  "emb_alternativo": "BAAI/bge-m3",
+  "llm_principal": "google/gemma-4-31b-it:free",
+  "llm_alternativo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+  "proveedor_llm": "OpenRouter"
+ },
+ "parametros_fijos": {
+  "tokenizador_fragmentos": "intfloat/multilingual-e5-small",
+  "temperatura": 0.0,
+  "max_tokens_salida": 512,
+  "max_tokens_contexto": 2400,
+  "semilla": 42,
+  "razonamiento": {
+   "enabled": false
+  },
+  "similitud": "coseno (producto punto de vectores normalizados)"
+ },
+ "configuraciones": {
+  "R0": {
+   "estrategia": "fija",
+   "chunk_size": 400,
+   "overlap": 60,
+   "k": 4,
+   "busqueda": "densa",
+   "emb": "intfloat/multilingual-e5-small",
+   "llm": "google/gemma-4-31b-it:free",
+   "usa_rag": true,
+   "experimento": "A"
+  },
+  "R1": {
+   "estrategia": "fija",
+   "chunk_size": 200,
+   "overlap": 30,
+   "k": 4,
+   "busqueda": "densa",
+   "emb": "intfloat/multilingual-e5-small",
+   "llm": "google/gemma-4-31b-it:free",
+   "usa_rag": true,
+   "experimento": "A"
+  },
+  "R2": {
+   "estrategia": "fija",
+   "chunk_size": 400,
+   "overlap": 60,
+   "k": 8,
+   "busqueda": "densa",
+   "emb": "intfloat/multilingual-e5-small",
+   "llm": "google/gemma-4-31b-it:free",
+   "usa_rag": true,
+   "experimento": "A"
+  },
+  "C0": {
+   "estrategia": "fija",
+   "chunk_size": 400,
+   "overlap": 60,
+   "k": 4,
+   "busqueda": "densa",
+   "emb": "intfloat/multilingual-e5-small",
+   "llm": "google/gemma-4-31b-it:free",
+   "usa_rag": false,
+   "experimento": "A"
+  },
+  "B_EMB": {
+   "estrategia": "fija",
+   "chunk_size": 400,
+   "overlap": 60,
+   "k": 4,
+   "busqueda": "densa",
+   "emb": "BAAI/bge-m3",
+   "llm": "google/gemma-4-31b-it:free",
+   "usa_rag": true,
+   "experimento": "B"
+  },
+  "B_LLM": {
+   "estrategia": "fija",
+   "chunk_size": 400,
+   "overlap": 60,
+   "k": 4,
+   "busqueda": "densa",
+   "emb": "intfloat/multilingual-e5-small",
+   "llm": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "usa_rag": true,
+   "experimento": "B"
+  },
+  "R2_HIBRIDA": {
+   "estrategia": "fija",
+   "chunk_size": 400,
+   "overlap": 60,
+   "k": 4,
+   "busqueda": "hibrida",
+   "emb": "intfloat/multilingual-e5-small",
+   "llm": "google/gemma-4-31b-it:free",
+   "usa_rag": true,
+   "experimento": "opcional"
+  }
+ },
+ "indices": {
+  "R0": {
+   "nombre": "fija_400_60__intfloat_multilingual_e5_small",
+   "fragmentos": 18,
+   "dimension": 384
+  },
+  "R1": {
+   "nombre": "fija_200_30__intfloat_multilingual_e5_small",
+   "fragmentos": 33,
+   "dimension": 384
+  },
+  "R2": {
+   "nombre": "fija_400_60__intfloat_multilingual_e5_small",
+   "fragmentos": 18,
+   "dimension": 384
+  },
+  "B_EMB": {
+   "nombre": "fija_400_60__BAAI_bge_m3",
+   "fragmentos": 18,
+   "dimension": 1024
+  },
+  "B_LLM": {
+   "nombre": "fija_400_60__intfloat_multilingual_e5_small",
+   "fragmentos": 18,
+   "dimension": 384
+  },
+  "R2_HIBRIDA": {
+   "nombre": "fija_400_60__intfloat_multilingual_e5_small",
+   "fragmentos": 18,
+   "dimension": 384
+  }
+ },
+ "corpus": [
+  {
+   "archivo": "catalogo_servicios_sla.docx",
+   "formato": "docx",
+   "unidades": 20,
+   "caracteres": 3212
+  },
+  {
+   "archivo": "faq_mesa_ayuda.md",
+   "formato": "md",
+   "unidades": 14,
+   "caracteres": 3047
+  },
+  {
+   "archivo": "guia_equipos_impresion_software.md",
+   "formato": "md",
+   "unidades": 14,
+   "caracteres": 2840
+  },
+  {
+   "archivo": "manual_conectividad_vpn.pdf",
+   "formato": "pdf",
+   "unidades": 4,
+   "caracteres": 5253
+  },
+  {
+   "archivo": "politica_cuentas_contrasenas.docx",
+   "formato": "docx",
+   "unidades": 17,
+   "caracteres": 3604
+  },
+  {
+   "archivo": "procedimiento_incidentes_seguridad.docx",
+   "formato": "docx",
+   "unidades": 27,
+   "caracteres": 4482
+  }
+ ],
+ "limites": [
+  "seed no garantizado por todos los proveedores de OpenRouter",
+  "una sola corrida por pregunta y configuración"
+ ]
+}

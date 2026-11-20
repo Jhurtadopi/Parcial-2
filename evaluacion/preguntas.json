@@ -1,0 +1,100 @@
+{
+  "estado": "BORRADOR - revisar y congelar (commit fechado) antes de las corridas finales",
+  "nota": "Cada 'texto' de evidencia es una cita literal del corpus; el cuaderno la usa para medir la cobertura de evidencia automáticamente. Si cambian el corpus, actualicen estas citas.",
+  "preguntas": [
+    {
+      "id": "D1",
+      "tipo": "directa",
+      "pregunta": "¿Cuántos dispositivos puede tener conectados al mismo tiempo un usuario a la VPN?",
+      "respuesta_esperada": "Como máximo 3 dispositivos simultáneos; si conecta un cuarto, la sesión más antigua se cierra automáticamente.",
+      "evidencia": [
+        {"archivo": "manual_conectividad_vpn.pdf", "localizador": "p. 2",
+         "texto": "Cada usuario puede tener como máximo 3 dispositivos conectados a la VPN de forma simultánea."}
+      ]
+    },
+    {
+      "id": "D2",
+      "tipo": "directa",
+      "pregunta": "¿Después de cuántos intentos fallidos se bloquea una cuenta institucional y cuánto dura el bloqueo automático?",
+      "respuesta_esperada": "Se bloquea tras 5 intentos fallidos en un período de 15 minutos, y el bloqueo automático se levanta solo después de 30 minutos.",
+      "evidencia": [
+        {"archivo": "politica_cuentas_contrasenas.docx", "localizador": "§ 4. Bloqueo y desbloqueo de cuentas, párr. 1",
+         "texto": "Una cuenta se bloquea automáticamente después de 5 intentos de inicio de sesión fallidos en un período de 15 minutos."},
+        {"archivo": "politica_cuentas_contrasenas.docx", "localizador": "§ 4. Bloqueo y desbloqueo de cuentas, párr. 2",
+         "texto": "El bloqueo automático se levanta solo después de 30 minutos."}
+      ]
+    },
+    {
+      "id": "D3",
+      "tipo": "directa",
+      "pregunta": "¿Cuál es el tamaño máximo de los archivos adjuntos en el correo institucional?",
+      "respuesta_esperada": "25 MB en adjuntos por mensaje, tanto al enviar como al recibir; para archivos más grandes se comparte un enlace de CóndorDrive.",
+      "evidencia": [
+        {"archivo": "faq_mesa_ayuda.md", "localizador": "§ Correo y almacenamiento",
+         "texto": "Los mensajes pueden tener como máximo 25 MB en adjuntos"}
+      ]
+    },
+    {
+      "id": "M1",
+      "tipo": "multidocumento",
+      "pregunta": "Mi cuenta quedó bloqueada y no puedo trabajar. ¿Qué prioridad tiene mi caso y en cuánto tiempo me deben dar la primera respuesta y resolverlo?",
+      "respuesta_esperada": "Prioridad P2 (FAQ). Para P2 la primera respuesta es en 1 hora hábil y la resolución objetivo en 8 horas hábiles (catálogo de servicios).",
+      "evidencia": [
+        {"archivo": "faq_mesa_ayuda.md", "localizador": "§ Clasificación de incidentes comunes",
+         "texto": "| Cuenta bloqueada | P2 |"},
+        {"archivo": "catalogo_servicios_sla.docx", "localizador": "§ 4. Tiempos de respuesta y de resolución, párr. 2",
+         "texto": "P2: primera respuesta en 1 hora hábil y resolución objetivo en 8 horas hábiles."}
+      ]
+    },
+    {
+      "id": "M2",
+      "tipo": "multidocumento",
+      "pregunta": "La VPN me muestra el error E-509. ¿Qué significa, cómo lo soluciono y qué necesito para poder hacerlo?",
+      "respuesta_esperada": "Es un certificado de dispositivo vencido (vigencia de 365 días). Se renueva en el portal de autoservicio, opción Dispositivos > Renovar certificado, y luego se reinicia CóndorVPN (manual). El portal exige aprobar la operación en CóndorAuth; si no tiene CóndorAuth (p. ej., cambió de teléfono), debe ir a la mesa de ayuda con su documento de identidad para reiniciar el enrolamiento de MFA (política).",
+      "evidencia": [
+        {"archivo": "manual_conectividad_vpn.pdf", "localizador": "p. 3",
+         "texto": "E-509 - Certificado de dispositivo vencido."},
+        {"archivo": "politica_cuentas_contrasenas.docx", "localizador": "§ 3. Autenticación de dos factores (MFA), párr. 2",
+         "texto": "incluida la renovación de certificados de dispositivo"}
+      ]
+    },
+    {
+      "id": "M3",
+      "tipo": "multidocumento",
+      "pregunta": "Perdí mi portátil institucional un sábado a las 3 de la tarde. ¿Qué prioridad tiene, por qué canal lo reporto a esa hora y en cuánto tiempo me deben responder?",
+      "respuesta_esperada": "Es P1 (FAQ). A esa hora la mesa está cerrada (sábados de 8:00 a 12:00), así que se reporta por la línea de guardia, extensión 5000 o 601-555-5000; la primera respuesta para P1 es en 15 minutos, 24x7 (catálogo). Además debe informar a la Oficina de Seguridad de la Información dentro de las 2 horas siguientes (FAQ).",
+      "evidencia": [
+        {"archivo": "faq_mesa_ayuda.md", "localizador": "§ Clasificación de incidentes comunes",
+         "texto": "| Pérdida o robo de un equipo portátil o teléfono con información institucional | P1 |"},
+        {"archivo": "catalogo_servicios_sla.docx", "localizador": "§ 2. Canales y horario de atención, párr. 2",
+         "texto": "Fuera de ese horario solo se atienden casos de prioridad P1, a través de la línea de guardia en la extensión 5000"},
+        {"archivo": "catalogo_servicios_sla.docx", "localizador": "§ 4. Tiempos de respuesta y de resolución, párr. 1",
+         "texto": "P1: primera respuesta en 15 minutos"}
+      ]
+    },
+    {
+      "id": "N1",
+      "tipo": "sin_respuesta",
+      "pregunta": "¿Cuál es el presupuesto anual asignado a la mesa de ayuda de TI?",
+      "respuesta_esperada": null,
+      "evidencia": [],
+      "justificacion": "Ningún documento del corpus menciona presupuestos ni cifras financieras de la mesa. La institución es ficticia, así que el LLM tampoco puede saberlo de memoria."
+    },
+    {
+      "id": "N2",
+      "tipo": "sin_respuesta",
+      "pregunta": "¿Durante cuánto tiempo se conservan los registros (logs) de las conexiones a la VPN?",
+      "respuesta_esperada": null,
+      "evidencia": [],
+      "justificacion": "El manual de conectividad habla de límites de sesión y de errores, pero no de retención de registros. Es una pregunta cercana al tema (tienta a responder con la duración de sesiones o con los 30 días de la papelera) pero no tiene respuesta en el corpus."
+    },
+    {
+      "id": "N3",
+      "tipo": "sin_respuesta",
+      "pregunta": "¿Qué sanción recibe un funcionario que comparte su contraseña con otra persona?",
+      "respuesta_esperada": null,
+      "evidencia": [],
+      "justificacion": "La política de cuentas define requisitos, bloqueo y desactivación, pero no establece sanciones disciplinarias. Un LLM podría inventar una sanción genérica; la respuesta correcta es abstenerse."
+    }
+  ]
+}
