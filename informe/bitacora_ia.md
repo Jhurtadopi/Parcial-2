@@ -25,3 +25,25 @@ Este documento sirve de evidencia para la **Sección 11 del Informe Final: Decla
   - Verificación de la lectura y coherencia con `README.md`, `PLAN_TRABAJO.md` y `Enunciado_Proyecto_RAG.md`.
 
 ---
+
+### Tarea: Verificación de pipeline y diagnóstico previo (Fase 1 de pruebas)
+- **Fecha:** 2026-11-20 18:45 (UTC-5)
+- **Herramienta:** Antigravity (Gemini 3.8 Flash)
+- **Solicitud del usuario:** 
+  1. Crear `evaluacion/preguntas_desarrollo.json` con 4 preguntas nuevas (2 directas, 1 multidocumento, 1 sin respuesta) con evidencia literal verificada contra el corpus.
+  2. Preparar en `scratch/` la prueba de 3 llamadas al LLM (R0, C0, B_LLM) con una pregunta de desarrollo, presentando el plan y esperando confirmación previa.
+  3. Diagnóstico sin LLM:
+     a) Tokens de contexto y fragmentos recortados en R2 ($k=8$).
+     b) Causa de falla de cobertura en M1, M2 y M3 para B_EMB (`bge-m3`) con rangos y puntajes de evidencia vs recuperados.
+  4. Resumen en `resultados/diagnostico_previo.md`.
+- **Qué generó / modificó:**
+  - `evaluacion/preguntas_desarrollo.json` (4 preguntas nuevas verificadas con aserciones Python contra el corpus).
+  - `resultados/diagnostico_previo.md` (informe técnico completo con tablas de tokens de R2 y rankings de B_EMB).
+  - Copia de seguridad del cuaderno en `scratch/proyecto_rag_prueba.ipynb`.
+  - Script de prueba `scratch/probar_3_llamadas.py`.
+- **Validación realizada:**
+  - Verificación por script de que cada fragmento de evidencia existe de forma exacta en el texto normalizado del corpus.
+  - Ejecución local del tokenizador y de los modelos de embeddings (`multilingual-e5-small` y `bge-m3`) para obtener las matrices exactas de similitud y conteos de tokens.
+  - No se realizó ninguna llamada a la API del LLM todavía (respetando la regla 4 y solicitando el OK del usuario con el plan detallado).
+  - No se ejecutó ningún `git commit` ni `git push`.
+---

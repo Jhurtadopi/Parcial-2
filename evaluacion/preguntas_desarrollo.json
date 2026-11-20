@@ -1,0 +1,63 @@
+{
+  "estado": "DESARROLLO - preguntas de prueba para validación del pipeline",
+  "nota": "Cada 'texto' de evidencia es una cita literal del corpus; el cuaderno la usa para medir la cobertura de evidencia automáticamente.",
+  "preguntas": [
+    {
+      "id": "DEV_D1",
+      "tipo": "directa",
+      "pregunta": "¿Cuál es la cuota mensual de páginas en blanco y negro para un funcionario y cómo se descuenta la impresión a color?",
+      "respuesta_esperada": "Cada funcionario tiene una cuota de 300 páginas en blanco y negro al mes. La impresión a color requiere aprobación del jefe de dependencia y se descuenta como 5 páginas por cada página a color.",
+      "evidencia": [
+        {
+          "archivo": "guia_equipos_impresion_software.md",
+          "localizador": "§ Impresión, líneas 32-34",
+          "texto": "Cada funcionario tiene una cuota de 300 páginas en blanco y negro al mes. La impresión a color requiere la aprobación del jefe de la dependencia y se descuenta como 5 páginas por cada página a color."
+        }
+      ]
+    },
+    {
+      "id": "DEV_D2",
+      "tipo": "directa",
+      "pregunta": "¿Qué servicios institucionales exigen obligatoriamente el uso de la VPN para acceder desde fuera del campus?",
+      "respuesta_esperada": "La VPN es obligatoria para acceder al sistema financiero, al repositorio de documentos administrativos, a las carpetas compartidas departamentales y a los servidores de laboratorio. El correo institucional y CóndorDrive funcionan sin VPN.",
+      "evidencia": [
+        {
+          "archivo": "manual_conectividad_vpn.pdf",
+          "localizador": "p. 1",
+          "texto": "La VPN es obligatoria para acceder al sistema financiero, al repositorio de documentos administrativos, a las carpetas compartidas departamentales y a los servidores de laboratorio."
+        }
+      ]
+    },
+    {
+      "id": "DEV_M1",
+      "tipo": "multidocumento",
+      "pregunta": "Necesito instalar un software especializado en mi equipo institucional. ¿Qué requisitos y aprobaciones se exigen, qué prioridad tiene la solicitud y cuál es el plazo de resolución según el SLA?",
+      "respuesta_esperada": "Se solicita por el catálogo de servicios con aprobación del jefe inmediato y solo se instala software licenciado o libre aprobado por Seguridad de la Información (FAQ y catálogo). La solicitud tiene prioridad P4 y su resolución objetivo es de 10 días hábiles (primera respuesta en 1 día hábil) (catálogo).",
+      "evidencia": [
+        {
+          "archivo": "faq_mesa_ayuda.md",
+          "localizador": "§ Equipos y software",
+          "texto": "Pida la instalación por el catálogo de servicios; requiere la aprobación de su jefe inmediato."
+        },
+        {
+          "archivo": "catalogo_servicios_sla.docx",
+          "localizador": "§ Servicios del catálogo, párr. 1",
+          "texto": "Instalación de software: se atiende como P4 y requiere la aprobación del jefe inmediato. Solo se instala software licenciado por el ITC o de licencia libre aprobado por la Oficina de Seguridad de la Información."
+        },
+        {
+          "archivo": "catalogo_servicios_sla.docx",
+          "localizador": "§ Tiempos de respuesta y de resolución, párr. 4",
+          "texto": "P4: primera respuesta en 1 día hábil y resolución objetivo en 10 días hábiles."
+        }
+      ]
+    },
+    {
+      "id": "DEV_N1",
+      "tipo": "sin_respuesta",
+      "pregunta": "¿Cuál es el costo o tarifa que debe pagar un estudiante para solicitar un duplicado físico de su carné institucional?",
+      "respuesta_esperada": null,
+      "evidencia": [],
+      "justificacion": "El corpus menciona que el carné se usa para retirar impresiones en las impresoras multifuncionales, pero ningún documento establece tarifas, costos ni el trámite de duplicado físico del carné. La institución es ficticia, por lo que el LLM debe abstenerse."
+    }
+  ]
+}
