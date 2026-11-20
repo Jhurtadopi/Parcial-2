@@ -8,3 +8,6 @@ __pycache__/
 .venv/
 # Herramientas de IA (las skills no van en el repositorio)
 .claude/
+.agent/
+.gemini/
+scratch/
