@@ -47,3 +47,19 @@ Este documento sirve de evidencia para la **Sección 11 del Informe Final: Decla
   - No se realizó ninguna llamada a la API del LLM todavía (respetando la regla 4 y solicitando el OK del usuario con el plan detallado).
   - No se ejecutó ningún `git commit` ni `git push`.
 ---
+
+### Tarea: Prueba de 3 llamadas al LLM en scratch/ (Fase 1 completada)
+- **Fecha:** 2026-11-21 17:54 (UTC-5)
+- **Herramienta:** Antigravity (Gemini 3.8 Flash)
+- **Solicitud del usuario:** 
+  - Ejecutar 3 llamadas con la pregunta de desarrollo `DEV_D2` en `scratch/` bajo las configuraciones R0, C0 y B_LLM tras obtener aprobación explícita ("ok").
+  - Reportar: respuesta, citas, abstención detectada, tiempo, modelo reportado y verificación de si alguna respuesta vino vacía (especialmente Nemotron con razonamiento desactivado).
+- **Qué generó / modificó:**
+  - Creación de `.env` en local vinculando la clave de OpenRouter de forma segura (sin imprimirla ni subirla a git).
+  - Ejecución de `scratch/probar_3_llamadas.py`.
+- **Validación y Hallazgos:**
+  - **B_LLM (`nvidia/nemotron-3-ultra-550b-a55b:free`):** Éxito total. Respondió en 1.075 s con la cita correcta `[F1] manual_conectividad_vpn.pdf · p. 1-2` respaldando el texto literal. No vino vacía (`vino_vacio = False`), demostrando que Nemotron funciona adecuadamente con razonamiento desactivado (`{"reasoning": {"enabled": False}}`).
+  - **R0 y C0 (`google/gemma-4-31b-it:free`):** Error HTTP 429 retornado por OpenRouter (`limit_source: upstream_provider_shared_pool` en Google AI Studio por saturación temporal del pool gratuito compartido).
+  - Verificación de modelos gratuitos disponibles reportados por OpenRouter: `nvidia/nemotron-3-ultra-550b-a55b:free`, `google/gemma-4-26b-a4b-it:free`, etc.
+  - Ningún archivo de producción fuera de `scratch/` ni `.env` fue modificado indebidamente. No se realizaron git commits.
+---
