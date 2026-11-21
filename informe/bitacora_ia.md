@@ -112,3 +112,17 @@ Este documento sirve de evidencia para la **Sección 11 del Informe Final: Decla
   - Verificación de que no se citaron cifras numéricas de corridas ni métricas de experimentos exploratorios, respetando la fundamentación pura en diseño.
   - No se llamó a la API del LLM. No se modificaron credenciales ni `.env`. No se ejecutó ningún `git commit` ni `git push`.
 ---
+
+### Tarea: Sección de casos dudosos y decisión en plantillas/rubrica_evaluacion.md
+- **Fecha:** 2026-11-21 18:29 (UTC-5)
+- **Herramienta:** Antigravity (Gemini 3.8 Flash)
+- **Solicitud del usuario:**
+  - Agregar en `plantillas/rubrica_evaluacion.md` una sección *"Casos dudosos y decisión"* con al menos 8 casos ambiguos y una decisión documentada para cada uno.
+  - Ejemplos requeridos: respuesta correcta citando fragmento equivocado, abstención con dato adicional, cita a [F9] inexistente, `EVIDENCIA INSUFICIENTE` en pregunta respondible, C0 que acierta por conocimiento general, y respuesta correcta pero incompleta en multidocumento.
+  - Mantener coherencia estricta con las definiciones de `correcta`, `sustantiva`, `citas_respaldan` y `abstencion_apropiada`.
+- **Qué generó / modificó:**
+  - `plantillas/rubrica_evaluacion.md`: Adición de 9 casos dudosos detallados con situación, decisiones asignadas en las 4 columnas de valoración (`correcta`, `sustantiva`, `citas_respaldan`, `abstencion_apropiada`) y criterio técnico unificado para los evaluadores.
+- **Validación realizada:**
+  - Verificación de consistencia cruzada contra las fórmulas y filtros de la sección 10 del cuaderno `proyecto_rag.ipynb` (`valoracion_final.csv`, cálculo de respaldo sobre respuestas sustantivas, y métricas de corrección y abstención).
+  - No se llamó a la API del LLM. No se leyeron credenciales ni claves. No se ejecutó ningún `git commit` ni `git push`.
+---
