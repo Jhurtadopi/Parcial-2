@@ -79,3 +79,19 @@ Este documento sirve de evidencia para la **Sección 11 del Informe Final: Decla
   - Ejecución de la celda de verificación de evidencia del cuaderno (`assert len(PREGUNTAS) == 9`, verificación de tipos, comprobación de pertenencia literal de cada texto de evidencia en el texto normalizado del corpus, y verificación de `len(archivos) >= 2` para las multidocumento). La prueba pasó exitosamente (`✔ Toda la evidencia existe en el corpus; las multidocumento usan ≥2 archivos.`).
   - No se llamó a la API del LLM. No se modificaron credenciales ni `.env`. No se ejecutó ningún `git commit` ni `git push`.
 ---
+
+### Tarea: Diligenciamiento de plantillas/caso_de_uso.md
+- **Fecha:** 2026-11-21 18:24 (UTC-5)
+- **Herramienta:** Antigravity (Gemini 3.8 Flash)
+- **Solicitud del usuario:**
+  - Rellenar `plantillas/caso_de_uso.md` usando `README.md`, `corpus/README.md` y los documentos del corpus.
+  - Definir usuarios y situación, 5 preguntas en alcance, elementos fuera de alcance y la tabla completa del corpus (origen, sintético y localizadores).
+  - Marcar expresamente "Datos aptos para servicios externos: Sí (corpus sintético)".
+  - No inventar documentos ni datos.
+- **Qué generó / modificó:**
+  - `plantillas/caso_de_uso.md`: Especificación técnica del caso de uso del asistente RAG de Mesa de Ayuda de TI para el Instituto Tecnológico Cóndor (ITC), delimitación de alcance (5 preguntas reales del corpus y exclusiones), tabla detallada de los 6 documentos del corpus (incluidos los 2 distractores) y confirmación de datos sintéticos para servicios externos.
+- **Validación realizada:**
+  - Cotejo directo contra los 6 archivos existentes en `corpus/` y el generador determinista `herramientas/generar_corpus.py`.
+  - Verificación de concordancia de localizadores con los cargadores del cuaderno (`p. X` para PDF, `§ X, párr. Y` para DOCX y `§ X, líneas Y-Z` para Markdown).
+  - No se llamó a la API del LLM. No se leyeron credenciales ni claves. No se ejecutó ningún `git commit` ni `git push`.
+---
