@@ -1,12 +1,14 @@
-# Hipótesis (escritas el <fecha>, antes de las corridas finales)
+# Hipótesis (escritas el 2026-11-21, antes de las corridas finales)
+
+> **Nota:** La cobertura de recuperación sin LLM se observó sobre las 9 preguntas antes de redactar estas hipótesis.
 
 | Comparación | Qué cambia | Qué esperamos que pase | Por qué | Métrica que lo mostraría |
 |---|---|---|---|---|
-| R1 vs R0 | <regla de fragmentación> | | | Cobertura, corrección |
-| R2 vs R0 | <k=8 o híbrida> | | | Cobertura (recuperado vs contexto), respaldo de citas |
-| C0 vs R0 | Sin recuperación | | | Corrección, abstención |
-| B: embeddings | <modelo nuevo> | | | Cobertura |
-| B: LLM | <modelo nuevo> | | | Corrección, respaldo, abstención |
+| **R1 vs R0** | Tamaño de fragmento: se reduce de 400 a 200 tokens (solapamiento proporcional de 60 a 30 tokens, 15 %). | Disminución o mantenimiento de la cobertura de evidencia y posible caída en corrección en preguntas con respuestas extensas. | Al reducir el tamaño a la mitad, los pasajes que explican un procedimiento largo o una tabla tienen mayor probabilidad de quedar partidos entre dos fragmentos adyacentes, perdiendo completitud contextual. | Cobertura de evidencia (recuperada y contexto), Corrección. |
+| **R2 vs R0** | Número de fragmentos recuperados: $k$ aumenta de 4 a 8 (búsqueda densa). | Mayor o igual cobertura en fragmentos recuperados, pero con recortes sistemáticos en el contexto enviado al LLM; posible menor precisión de citas por ruido. | Recuperar 8 fragmentos de ~400 tokens con metadatos suma entre 2400 y 3000 tokens, superando el límite estricto de 2400 tokens de contexto. El sistema corta los últimos fragmentos y añade más texto distractor al prompt. | Cobertura de evidencia (recuperado vs. contexto), Respaldo de las citas. |
+| **C0 vs R0** | Sin recuperación (Sin RAG): el LLM responde únicamente con su conocimiento preentrenado, sin documentos de contexto. | Corrección cercana a 0 en preguntas respondibles institucionales (0/6) y abstención alta o alucinación si intenta responder. | El corpus describe una institución ficticia (*Instituto Tecnológico Cóndor*) con datos sintéticos no presentes en internet ni en los datos de entrenamiento del modelo. Sin documentos, el modelo carece de base fáctica. | Corrección (esperada 0 en C0 vs alta en R0), Abstención apropiada. |
+| **B: embeddings** | Modelo de embeddings: se sustituye `multilingual-e5-small` (384 dim) por `BAAI/bge-m3` (1024 dim), manteniendo $k=4$. | Modificación en los rankings de similitud; riesgo de menor cobertura en preguntas multidocumento por concentración temática en un solo archivo. | `bge-m3` tiene mayor dimensionalidad y sensibilidad a términos densos de un solo tema dominante (p. ej. "VPN"), lo que puede causar que los 4 cupos de $k$ sean copados por un único documento, desplazando la segunda evidencia necesaria. | Cobertura de evidencia (especialmente en multidocumento). |
+| **B: LLM** | Modelo generativo: se sustituye `google/gemma-4-31b-it:free` por `nvidia/nemotron-3-ultra-550b-a55b:free` (razonamiento desactivado). | Desempeño similar o superior en adherencia estricta a formato de citas y fidelidad al contexto sin inventar datos. | Nemotron-3 Ultra es un modelo de gran escala ajustado para seguimiento corporativo de instrucciones RAG; con razonamiento apagado (`reasoning: false`), se limita a extraer textualmente las respuestas respaldadas en los fragmentos. | Corrección, Respaldo de las citas, Abstención apropiada. |
 
-**Variables fijas:** corpus, preguntas, modelos, temperatura = 0, límite de salida = ___, plantilla (R0–R2), límite de contexto = ___.
-**Límites conocidos:** (p. ej., el proveedor no permite fijar la semilla)
+**Variables fijas:** corpus (6 documentos sintéticos en `corpus/`), preguntas (9 de referencia en `evaluacion/preguntas.json`), modelos base (`intfloat/multilingual-e5-small` y `google/gemma-4-31b-it:free`), temperatura = 0, límite de salida = 512 tokens, plantilla de instrucciones fija (R0–R2), límite de contexto = 2400 tokens, semilla = 42.  
+**Límites conocidos:** los proveedores externos en la nube (OpenRouter / pools gratuitos compartidos) pueden no respetar la fijación de la semilla aleatoria (determinismo estricto no garantizado aguas arriba) y presentan variabilidad temporal de disponibilidad o saturación de cuota (HTTP 429).

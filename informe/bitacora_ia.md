@@ -95,3 +95,20 @@ Este documento sirve de evidencia para la **Sección 11 del Informe Final: Decla
   - Verificación de concordancia de localizadores con los cargadores del cuaderno (`p. X` para PDF, `§ X, párr. Y` para DOCX y `§ X, líneas Y-Z` para Markdown).
   - No se llamó a la API del LLM. No se leyeron credenciales ni claves. No se ejecutó ningún `git commit` ni `git push`.
 ---
+
+### Tarea: Redacción de borrador de hipótesis en plantillas/hipotesis.md
+- **Fecha:** 2026-11-21 18:26 (UTC-5)
+- **Herramienta:** Antigravity (Gemini 3.8 Flash)
+- **Solicitud del usuario:**
+  - Redactar borrador de `plantillas/hipotesis.md` para R1 vs R0, R2 vs R0, C0 vs R0, B-embeddings y B-LLM.
+  - Basarse ÚNICAMENTE en el diseño del sistema (tamaño de fragmentos, $k=8$ frente al límite de 2400 tokens de contexto, corpus sintético desconocido por el LLM y características de modelos), sin usar métricas de cobertura exploratoria ni resultados de corridas previas.
+  - Documentar para cada comparación: qué se espera, por qué y qué métrica lo mostraría.
+  - Incluir variables fijas (corpus, preguntas, modelos base, temperatura 0, 512 salida, plantilla fija, 2400 contexto, semilla 42), límites conocidos (semilla no garantizada por proveedores externos y límites de tasa 429) y la nota: *"La cobertura de recuperación sin LLM se observó sobre las 9 preguntas antes de redactar estas hipótesis"*.
+  - Explicar cada hipótesis en 2 líneas pedagógicas en el chat.
+- **Qué generó / modificó:**
+  - `plantillas/hipotesis.md`: Tabla completa de 5 hipótesis estructuradas según el diseño técnico del proyecto, con variables fijas, límites de API y nota de observación previa.
+- **Validación realizada:**
+  - Verificación de concordancia de parámetros con `proyecto_rag.ipynb` y las reglas permanentes.
+  - Verificación de que no se citaron cifras numéricas de corridas ni métricas de experimentos exploratorios, respetando la fundamentación pura en diseño.
+  - No se llamó a la API del LLM. No se modificaron credenciales ni `.env`. No se ejecutó ningún `git commit` ni `git push`.
+---
