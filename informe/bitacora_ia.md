@@ -62,4 +62,20 @@ Este documento sirve de evidencia para la **Sección 11 del Informe Final: Decla
   - **R0 y C0 (`google/gemma-4-31b-it:free`):** Error HTTP 429 retornado por OpenRouter (`limit_source: upstream_provider_shared_pool` en Google AI Studio por saturación temporal del pool gratuito compartido).
   - Verificación de modelos gratuitos disponibles reportados por OpenRouter: `nvidia/nemotron-3-ultra-550b-a55b:free`, `google/gemma-4-26b-a4b-it:free`, etc.
   - Ningún archivo de producción fuera de `scratch/` ni `.env` fue modificado indebidamente. No se realizaron git commits.
+### Tarea: Depuración de evidencia, recorte de respuestas y generación de preguntas_referencia.md
+- **Fecha:** 2026-11-21 18:16 (UTC-5)
+- **Herramienta:** Antigravity (Gemini 3.8 Flash)
+- **Solicitud del usuario:**
+  1. Revisar `evaluacion/preguntas.json` y el corpus para solucionar problemas de evidencia incompleta en M3 (horario de sábados en catálogo §2 párr. 1, línea de guardia completa con ambos números en §2 párr. 2, y retiro de aviso a Seguridad) y M2 (inclusión de párr. 3 de §3 de la política y pasaje completo de E-509 con instrucción de renovar).
+  2. Sustituir frases cortas de evidencia por los pasajes literales completos necesarios con sus localizadores precisos.
+  3. Recortar de las respuestas esperadas la información accesoria que las preguntas no solicitan (D1, D3 y M3), explicando cada recorte.
+  4. Mantener la estructura de 3 directas, 3 multidocumento (≥2 archivos) y 3 sin respuesta. Presentar diff en modo plan y no aplicar hasta recibir OK.
+  5. Tras aprobación ("ok"), aplicar cambios, ejecutar en `scratch/` las aserciones de verificación de evidencia del cuaderno y generar `plantillas/preguntas_referencia.md` desde el JSON sin inventar nada.
+- **Qué generó / modificó:**
+  - `evaluacion/preguntas.json`: Modificación de las evidencias y respuestas esperadas de D1, D2, D3, M1, M2 y M3.
+  - `plantillas/preguntas_referencia.md`: Generación completa de la plantilla a partir de `evaluacion/preguntas.json`, incluyendo tabla comparativa, justificaciones de preguntas sin respuesta y pasajes literales citados.
+  - Artefacto `implementation_plan.md` y `walkthrough.md`.
+- **Validación realizada:**
+  - Ejecución de la celda de verificación de evidencia del cuaderno (`assert len(PREGUNTAS) == 9`, verificación de tipos, comprobación de pertenencia literal de cada texto de evidencia en el texto normalizado del corpus, y verificación de `len(archivos) >= 2` para las multidocumento). La prueba pasó exitosamente (`✔ Toda la evidencia existe en el corpus; las multidocumento usan ≥2 archivos.`).
+  - No se llamó a la API del LLM. No se modificaron credenciales ni `.env`. No se ejecutó ningún `git commit` ni `git push`.
 ---

@@ -6,10 +6,13 @@
       "id": "D1",
       "tipo": "directa",
       "pregunta": "¿Cuántos dispositivos puede tener conectados al mismo tiempo un usuario a la VPN?",
-      "respuesta_esperada": "Como máximo 3 dispositivos simultáneos; si conecta un cuarto, la sesión más antigua se cierra automáticamente.",
+      "respuesta_esperada": "Como máximo 3 dispositivos conectados a la VPN de forma simultánea.",
       "evidencia": [
-        {"archivo": "manual_conectividad_vpn.pdf", "localizador": "p. 2",
-         "texto": "Cada usuario puede tener como máximo 3 dispositivos conectados a la VPN de forma simultánea."}
+        {
+          "archivo": "manual_conectividad_vpn.pdf",
+          "localizador": "p. 2",
+          "texto": "Cada usuario puede tener como máximo 3 dispositivos conectados a la VPN de forma simultánea. Al intentar conectar un cuarto dispositivo, la sesión más antigua se cierra automáticamente."
+        }
       ]
     },
     {
@@ -18,20 +21,29 @@
       "pregunta": "¿Después de cuántos intentos fallidos se bloquea una cuenta institucional y cuánto dura el bloqueo automático?",
       "respuesta_esperada": "Se bloquea tras 5 intentos fallidos en un período de 15 minutos, y el bloqueo automático se levanta solo después de 30 minutos.",
       "evidencia": [
-        {"archivo": "politica_cuentas_contrasenas.docx", "localizador": "§ 4. Bloqueo y desbloqueo de cuentas, párr. 1",
-         "texto": "Una cuenta se bloquea automáticamente después de 5 intentos de inicio de sesión fallidos en un período de 15 minutos."},
-        {"archivo": "politica_cuentas_contrasenas.docx", "localizador": "§ 4. Bloqueo y desbloqueo de cuentas, párr. 2",
-         "texto": "El bloqueo automático se levanta solo después de 30 minutos."}
+        {
+          "archivo": "politica_cuentas_contrasenas.docx",
+          "localizador": "§ 4. Bloqueo y desbloqueo de cuentas, párr. 1",
+          "texto": "Una cuenta se bloquea automáticamente después de 5 intentos de inicio de sesión fallidos en un período de 15 minutos. Cuentan los intentos fallidos en cualquier servicio que use la cuenta institucional, incluida la VPN."
+        },
+        {
+          "archivo": "politica_cuentas_contrasenas.docx",
+          "localizador": "§ 4. Bloqueo y desbloqueo de cuentas, párr. 2",
+          "texto": "El bloqueo automático se levanta solo después de 30 minutos. Si el usuario necesita el desbloqueo antes, puede pedirlo a la mesa de ayuda, que verificará su identidad con el código de empleado o de estudiante y la fecha de nacimiento registrada."
+        }
       ]
     },
     {
       "id": "D3",
       "tipo": "directa",
       "pregunta": "¿Cuál es el tamaño máximo de los archivos adjuntos en el correo institucional?",
-      "respuesta_esperada": "25 MB en adjuntos por mensaje, tanto al enviar como al recibir; para archivos más grandes se comparte un enlace de CóndorDrive.",
+      "respuesta_esperada": "Como máximo 25 MB en adjuntos por mensaje, tanto al enviar como al recibir.",
       "evidencia": [
-        {"archivo": "faq_mesa_ayuda.md", "localizador": "§ Correo y almacenamiento",
-         "texto": "Los mensajes pueden tener como máximo 25 MB en adjuntos"}
+        {
+          "archivo": "faq_mesa_ayuda.md",
+          "localizador": "§ Correo y almacenamiento, líneas 46-48",
+          "texto": "Los mensajes pueden tener como máximo 25 MB en adjuntos, tanto al enviar como al recibir. Para archivos más grandes, comparta un enlace de CóndorDrive."
+        }
       ]
     },
     {
@@ -40,36 +52,67 @@
       "pregunta": "Mi cuenta quedó bloqueada y no puedo trabajar. ¿Qué prioridad tiene mi caso y en cuánto tiempo me deben dar la primera respuesta y resolverlo?",
       "respuesta_esperada": "Prioridad P2 (FAQ). Para P2 la primera respuesta es en 1 hora hábil y la resolución objetivo en 8 horas hábiles (catálogo de servicios).",
       "evidencia": [
-        {"archivo": "faq_mesa_ayuda.md", "localizador": "§ Clasificación de incidentes comunes",
-         "texto": "| Cuenta bloqueada | P2 |"},
-        {"archivo": "catalogo_servicios_sla.docx", "localizador": "§ 4. Tiempos de respuesta y de resolución, párr. 2",
-         "texto": "P2: primera respuesta en 1 hora hábil y resolución objetivo en 8 horas hábiles."}
+        {
+          "archivo": "faq_mesa_ayuda.md",
+          "localizador": "§ Clasificación de incidentes comunes, líneas 22-31",
+          "texto": "| Cuenta bloqueada | P2 |"
+        },
+        {
+          "archivo": "catalogo_servicios_sla.docx",
+          "localizador": "§ 4. Tiempos de respuesta y de resolución, párr. 2",
+          "texto": "P2: primera respuesta en 1 hora hábil y resolución objetivo en 8 horas hábiles."
+        }
       ]
     },
     {
       "id": "M2",
       "tipo": "multidocumento",
       "pregunta": "La VPN me muestra el error E-509. ¿Qué significa, cómo lo soluciono y qué necesito para poder hacerlo?",
-      "respuesta_esperada": "Es un certificado de dispositivo vencido (vigencia de 365 días). Se renueva en el portal de autoservicio, opción Dispositivos > Renovar certificado, y luego se reinicia CóndorVPN (manual). El portal exige aprobar la operación en CóndorAuth; si no tiene CóndorAuth (p. ej., cambió de teléfono), debe ir a la mesa de ayuda con su documento de identidad para reiniciar el enrolamiento de MFA (política).",
+      "respuesta_esperada": "Es un certificado de dispositivo vencido (vigencia de 365 días). Se soluciona ingresando al portal de autoservicio (autoservicio.itc.example), opción Dispositivos > Renovar certificado, y luego reiniciando el cliente CóndorVPN. Para hacerlo se exige una aprobación en CóndorAuth; si el usuario cambió de teléfono o perdió el dispositivo con CóndorAuth, debe presentarse en la mesa de ayuda con su documento de identidad para reiniciar el enrolamiento de MFA.",
       "evidencia": [
-        {"archivo": "manual_conectividad_vpn.pdf", "localizador": "p. 3",
-         "texto": "E-509 - Certificado de dispositivo vencido."},
-        {"archivo": "politica_cuentas_contrasenas.docx", "localizador": "§ 3. Autenticación de dos factores (MFA), párr. 2",
-         "texto": "incluida la renovación de certificados de dispositivo"}
+        {
+          "archivo": "manual_conectividad_vpn.pdf",
+          "localizador": "p. 3",
+          "texto": "E-509 - Certificado de dispositivo vencido. Los certificados de dispositivo tienen una vigencia de 365 días. Para renovarlo, ingrese al portal de autoservicio (autoservicio.itc.example), opción Dispositivos, y pulse Renovar certificado; luego reinicie el cliente CóndorVPN."
+        },
+        {
+          "archivo": "politica_cuentas_contrasenas.docx",
+          "localizador": "§ 3. Autenticación de dos factores (MFA), párr. 2",
+          "texto": "El portal de autoservicio (autoservicio.itc.example) exige una aprobación en CóndorAuth para cualquier operación sobre la cuenta o sus dispositivos, incluida la renovación de certificados de dispositivo y el cambio de contraseña."
+        },
+        {
+          "archivo": "politica_cuentas_contrasenas.docx",
+          "localizador": "§ 3. Autenticación de dos factores (MFA), párr. 3",
+          "texto": "Si el usuario cambió de teléfono o perdió el dispositivo con CóndorAuth, no podrá usar el portal de autoservicio. En ese caso debe presentarse en la mesa de ayuda con su documento de identidad para que un técnico reinicie el enrolamiento de MFA. Este trámite no se atiende por teléfono ni por correo."
+        }
       ]
     },
     {
       "id": "M3",
       "tipo": "multidocumento",
       "pregunta": "Perdí mi portátil institucional un sábado a las 3 de la tarde. ¿Qué prioridad tiene, por qué canal lo reporto a esa hora y en cuánto tiempo me deben responder?",
-      "respuesta_esperada": "Es P1 (FAQ). A esa hora la mesa está cerrada (sábados de 8:00 a 12:00), así que se reporta por la línea de guardia, extensión 5000 o 601-555-5000; la primera respuesta para P1 es en 15 minutos, 24x7 (catálogo). Además debe informar a la Oficina de Seguridad de la Información dentro de las 2 horas siguientes (FAQ).",
+      "respuesta_esperada": "Es prioridad P1. A esa hora la mesa de ayuda está cerrada (horario de sábados de 8:00 a 12:00), por lo que se reporta a través de la línea de guardia en la extensión 5000 o al número externo 601-555-5000; la primera respuesta para P1 es en 15 minutos, en cualquier día y hora (24x7).",
       "evidencia": [
-        {"archivo": "faq_mesa_ayuda.md", "localizador": "§ Clasificación de incidentes comunes",
-         "texto": "| Pérdida o robo de un equipo portátil o teléfono con información institucional | P1 |"},
-        {"archivo": "catalogo_servicios_sla.docx", "localizador": "§ 2. Canales y horario de atención, párr. 2",
-         "texto": "Fuera de ese horario solo se atienden casos de prioridad P1, a través de la línea de guardia en la extensión 5000"},
-        {"archivo": "catalogo_servicios_sla.docx", "localizador": "§ 4. Tiempos de respuesta y de resolución, párr. 1",
-         "texto": "P1: primera respuesta en 15 minutos"}
+        {
+          "archivo": "faq_mesa_ayuda.md",
+          "localizador": "§ Clasificación de incidentes comunes, líneas 22-31",
+          "texto": "| Pérdida o robo de un equipo portátil o teléfono con información institucional | P1 |"
+        },
+        {
+          "archivo": "catalogo_servicios_sla.docx",
+          "localizador": "§ 2. Canales y horario de atención, párr. 1",
+          "texto": "La mesa de ayuda atiende de lunes a viernes de 7:00 a 19:00 y los sábados de 8:00 a 12:00, excepto festivos. Los canales son: el portal de soporte (soporte.itc.example), el correo mesadeayuda@itc.example, la extensión telefónica 4000 y la atención presencial en el edificio B, oficina 104."
+        },
+        {
+          "archivo": "catalogo_servicios_sla.docx",
+          "localizador": "§ 2. Canales y horario de atención, párr. 2",
+          "texto": "Fuera de ese horario solo se atienden casos de prioridad P1, a través de la línea de guardia en la extensión 5000 (o el número externo 601-555-5000). Los casos de otras prioridades registrados fuera de horario se atienden al inicio de la siguiente jornada."
+        },
+        {
+          "archivo": "catalogo_servicios_sla.docx",
+          "localizador": "§ 4. Tiempos de respuesta y de resolución, párr. 1",
+          "texto": "P1: primera respuesta en 15 minutos y resolución objetivo en 4 horas, en cualquier día y hora (24x7)."
+        }
       ]
     },
     {
