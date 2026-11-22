@@ -1,2 +1,7 @@
 configuración,experimento,cobertura recuperado (/6),cobertura contexto (/6),corrección (/6),respaldo de citas,abstención apropiada (/3),recortes de contexto,tiempo medio (s)
+R0,A,5/6,5/6,5/6,83% (5/6),2/3,0,1.16
+R1,A,4/6,4/6,5/6,67% (4/6),3/3,0,0.68
+R2,A,5/6,5/6,5/6,67% (4/6),3/3,9,0.8
+C0,A,—,—,0/6,— (C0 sin citas),3/3,—,1.0
+B_EMB,B,3/6,3/6,4/6,40% (2/5),3/3,0,0.97
 B_LLM,B,5/6,5/6,6/6,100% (6/6),3/3,0,3.31

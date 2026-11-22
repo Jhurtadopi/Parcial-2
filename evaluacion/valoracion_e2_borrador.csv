@@ -1,0 +1,46 @@
+run_id,configuracion,pregunta_id,tipo_pregunta,correcta,sustantiva,citas_respaldan,abstencion_apropiada,notas
+c9cee0924c,R0,D1,directa,1,1,1,,correcta y completa frente a la referencia; fragmentos citados respaldan las afirmaciones
+3d111ed861,R0,D2,directa,1,1,1,,correcta y completa frente a la referencia; fragmentos citados respaldan las afirmaciones
+9e0be848ea,R0,D3,directa,1,1,1,,correcta y completa frente a la referencia; fragmentos citados respaldan las afirmaciones
+44125a97d4,R0,M1,multidocumento,1,1,1,,correcta y completa frente a la referencia; fragmentos citados respaldan las afirmaciones
+5d720aa788,R0,M2,multidocumento,0,1,0,,"incompleta/incorrecta: faltan datos [['condorauth', 'mfa', 'documento de identidad', 'enrolamiento']]; cita fragmento que NO contiene la evidencia afirmada (caso #1/#3)"
+d8060c24c0,R0,M3,multidocumento,1,1,1,,correcta y completa frente a la referencia; fragmentos citados respaldan las afirmaciones
+7b5bbcb698,R0,N1,sin_respuesta,,0,,1,abstención con frase contractual
+fa61e1986a,R0,N2,sin_respuesta,,0,,1,abstención con frase contractual
+3ca37ebc31,R0,N3,sin_respuesta,,0,,0,ALUCINA o añade dato sin respaldo -> abstención no apropiada
+f7a3d809e8,R1,D1,directa,1,1,1,,correcta y completa frente a la referencia; fragmentos citados respaldan las afirmaciones
+372fcff72c,R1,D2,directa,1,1,1,,correcta y completa frente a la referencia; fragmentos citados respaldan las afirmaciones
+a3bdcb142f,R1,D3,directa,1,1,1,,correcta y completa frente a la referencia; fragmentos citados respaldan las afirmaciones
+a4deae4fa0,R1,M1,multidocumento,1,1,1,,correcta y completa frente a la referencia; fragmentos citados respaldan las afirmaciones
+2fb43a472c,R1,M2,multidocumento,0,1,0,,"incompleta/incorrecta: faltan datos [['condorauth', 'mfa', 'documento de identidad', 'enrolamiento']]; cita fragmento que NO contiene la evidencia afirmada (caso #1/#3)"
+1331670cfc,R1,M3,multidocumento,1,1,0,,correcta y completa frente a la referencia; cita fragmento que NO contiene la evidencia afirmada (caso #1/#3)
+07330ccd32,R1,N1,sin_respuesta,,0,,1,abstención con frase contractual
+7d90cfe89b,R1,N2,sin_respuesta,,0,,1,abstención con frase contractual
+b387d103b2,R1,N3,sin_respuesta,,0,,1,abstención válida con otras palabras (no usó la frase exacta)
+7fdf4bb3b0,R2,D1,directa,1,1,0,,correcta y completa frente a la referencia; sin citas [F#]: no hay respaldo verificable (caso #8)
+19996f7ea2,R2,D2,directa,1,1,1,,correcta y completa frente a la referencia; fragmentos citados respaldan las afirmaciones
+870acbc26f,R2,D3,directa,1,1,1,,correcta y completa frente a la referencia; fragmentos citados respaldan las afirmaciones
+92a6a39328,R2,M1,multidocumento,1,1,1,,correcta y completa frente a la referencia; fragmentos citados respaldan las afirmaciones
+2ac9bc8c71,R2,M2,multidocumento,0,1,0,,"incompleta/incorrecta: faltan datos [['condorauth', 'mfa', 'documento de identidad', 'enrolamiento']]; cita fragmento que NO contiene la evidencia afirmada (caso #1/#3)"
+becf615317,R2,M3,multidocumento,1,1,1,,correcta y completa frente a la referencia; fragmentos citados respaldan las afirmaciones
+4ce1966f29,R2,N1,sin_respuesta,,0,,1,abstención con frase contractual
+390ca8a9d9,R2,N2,sin_respuesta,,0,,1,abstención con frase contractual
+b80f9e65ac,R2,N3,sin_respuesta,,0,,1,abstención con frase contractual
+c928313b2c,C0,D1,directa,0,0,,,abstención en pregunta respondible = incorrecta (y no sustantiva)
+11738a6c26,C0,D2,directa,0,0,,,abstención en pregunta respondible = incorrecta (y no sustantiva)
+14d895145e,C0,D3,directa,0,0,,,abstención en pregunta respondible = incorrecta (y no sustantiva)
+0490cb9f10,C0,M1,multidocumento,0,0,,,abstención en pregunta respondible = incorrecta (y no sustantiva)
+ce30739496,C0,M2,multidocumento,0,0,,,abstención en pregunta respondible = incorrecta (y no sustantiva)
+556bb747be,C0,M3,multidocumento,0,0,,,abstención en pregunta respondible = incorrecta (y no sustantiva)
+5e78eff572,C0,N1,sin_respuesta,,0,,1,abstención con frase contractual
+f116a9a631,C0,N2,sin_respuesta,,0,,1,abstención con frase contractual
+5a15b46c8d,C0,N3,sin_respuesta,,0,,1,abstención con frase contractual
+85042d86d8,B_EMB,D1,directa,1,1,1,,correcta y completa frente a la referencia; fragmentos citados respaldan las afirmaciones
+159c5564d0,B_EMB,D2,directa,1,1,0,,correcta y completa frente a la referencia; sin citas [F#]: no hay respaldo verificable (caso #8)
+b2bbb0a5af,B_EMB,D3,directa,1,1,1,,correcta y completa frente a la referencia; fragmentos citados respaldan las afirmaciones
+6eec608d17,B_EMB,M1,multidocumento,0,0,,,abstención en pregunta respondible = incorrecta (y no sustantiva)
+047167a04d,B_EMB,M2,multidocumento,0,1,0,,"incompleta/incorrecta: faltan datos [['condorauth', 'mfa', 'documento de identidad', 'enrolamiento']]; cita fragmento que NO contiene la evidencia afirmada (caso #1/#3)"
+d10f817b39,B_EMB,M3,multidocumento,1,1,0,,correcta y completa frente a la referencia; cita fragmento que NO contiene la evidencia afirmada (caso #1/#3)
+f55bd86c22,B_EMB,N1,sin_respuesta,,0,,1,abstención con frase contractual
+b19dd9ff1e,B_EMB,N2,sin_respuesta,,0,,1,abstención con frase contractual
+570f92c3ae,B_EMB,N3,sin_respuesta,,0,,1,abstención válida con otras palabras (no usó la frase exacta)

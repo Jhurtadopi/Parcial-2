@@ -266,6 +266,61 @@ Este documento sirve de evidencia para la **Sección 11 del Informe Final: Decla
   - Inspección del contenido de `entrega/Parcial-2.zip` confirmando la presencia íntegra de los entregables y ausencia de `.git` y `.env`.
 ---
 
+### Tarea: Corridas finales de las 5 configuraciones pendientes con LLM base alternativo
+- **Fecha:** 2026-11-22 (UTC-5)
+- **Herramienta:** Kiro CLI
+- **Solicitud del usuario:**
+  - Completar las corridas pendientes (R0, R1, R2, C0, B_EMB) que estaban bloqueadas por HTTP 429 del modelo `google/gemma-4-31b-it:free`.
+  - Autorización explícita de la **opción B**: cambiar el LLM principal a `nvidia/nemotron-3.5-lightning:free` (modelo que sí responde), por indisponibilidad persistente de Gemma. Decisión del equipo.
+  - Ejecutar primero R0 (9 llamadas) para validar, y luego el resto una por una tras revisión.
+- **Qué generó / modificó:**
+  - `scratch/diag_1_llamada.py`, `scratch/diag_nemotron.py`, `scratch/diag_lightning.py`: diagnósticos de 1 llamada para confirmar que la clave autentica, que Gemma sigue en 429 y que nemotron-ultra y nemotron-3.5-lightning responden.
+  - `scratch/correr_configs.py`: ejecutor que reutiliza EXACTAMENTE las celdas del cuaderno (`proyecto_rag.ipynb`) con un único parche: `LLM_PRINCIPAL` de Gemma a `nvidia/nemotron-3.5-lightning:free`. No se modificó el cuaderno original (regla 6).
+  - `resultados/corridas.jsonl` y `resultados/registro_corridas.csv`: se añadieron las 45 corridas (R0, R1, R2, C0, B_EMB × 9), para un total de 54.
+  - `evaluacion/valoracion_plantilla.csv`: regenerada con las 54 corridas para la evaluación.
+- **Validación y Hallazgos:**
+  - **54/54 corridas exitosas, 0 fallos** del proveedor en esta sesión. Costo $0 (modelos `:free`).
+  - Parámetros verificados sin cambios salvo el LLM base: chunk/overlap/k, embeddings, temperatura 0, semilla 42, 512 salida, 2400 contexto, razonamiento off.
+  - Modelo reportado: R0/R1/R2/C0/B_EMB → `nvidia/nemotron-3.5-lightning:free`; B_LLM → `nvidia/nemotron-3-ultra-550b-a55b:free`.
+  - Hallazgos cualitativos (para el análisis): R1 perdió cobertura en M3 (fragmentos de 200 tok parten el pasaje); R2 recortó contexto en las 9 preguntas sin ganar cobertura frente a R0; C0 se abstuvo en las 9 (0/6 en respondibles, demostrando la dependencia del RAG); B_EMB falló cobertura 0/3 en multidocumento (efecto monopolio temático, confirma el diagnóstico previo); M2 con cobertura 0 en todas las variantes densas.
+  - **Desviación del plan a documentar en el informe:** el LLM base dejó de ser Gemma; las hipótesis (congeladas, no modificadas) fueron escritas asumiendo Gemma.
+  - No se leyeron ni imprimieron credenciales. No se modificaron `evaluacion/preguntas.json` ni `plantillas/hipotesis.md` (tag `congelado` intacto). No se ejecutó `git commit` ni `git push`.
+---
+
+### Tarea: Calificación asistida de 45 corridas y recálculo de métricas
+- **Fecha:** 2026-11-22 (UTC-5)
+- **Herramienta:** Kiro CLI
+- **Solicitud del usuario:**
+  - Calificar las 45 corridas nuevas (R0, R1, R2, C0, B_EMB) y recalcular la tabla de resultados.
+  - Opción elegida por el usuario: integrar la calificación asistida directamente en `valoracion_final.csv` y recalcular (asumiendo que queda pendiente la revisión humana).
+- **Qué generó / modificó:**
+  - `scratch/generar_revision.py`, `scratch/revision_nuevas.md`: ficha por corrida con respuesta esperada, respuesta del sistema y texto literal de los fragmentos citados.
+  - `scratch/calificar.py`, `evaluacion/valoracion_e2_borrador.csv`: calificación determinista según la rúbrica, cotejando la evidencia contra el TEXTO COMPLETO del fragmento citado (detecta el caso #1/#8: respuesta correcta que cita un fragmento sin la evidencia, o sin corchetes). Criterio de `sustantiva` para preguntas N alineado con B_LLM (abstención = no sustantiva).
+  - `scratch/integrar_y_metricas.py`: ensamblado de `evaluacion/valoracion_final.csv` (9 B_LLM previas + 45 nuevas) y recálculo con la función `calcular_metricas()` del cuaderno (sin modificar el cuaderno).
+  - `evaluacion/valoracion_final.csv`: ahora 54 filas (6 configuraciones). Respaldo en `scratch/valoracion_final_BLLM_backup.csv`.
+  - `resultados/tabla_resultados.csv` y `resultados/tabla_resultados.md`: regenerados con las métricas reales de las 6 configuraciones y la matriz pregunta × configuración.
+- **Resultados (corrección /6 · respaldo citas · abstención /3):** R0 5/6 · 83% · 2/3; R1 5/6 · 67% · 3/3; R2 5/6 · 67% · 3/3 (9 recortes de contexto); C0 0/6 · n/a · 3/3; B_EMB 4/6 · 40% · 3/3; B_LLM 6/6 · 100% · 3/3.
+- **Validación y límites:**
+  - Métricas calculadas con la MISMA `calcular_metricas()` del cuaderno sobre `valoracion_final.csv`; CSV y MD consistentes.
+  - **Límite declarado:** la calificación de las 45 corridas es ASISTIDA (criterio automático), no la doble evaluación humana que exige la rúbrica. Casos límite (p. ej. R1/M3 y B_EMB/M3, correctas pero con posible cita no respaldada; las M2 marcadas incompletas por omitir el requisito de MFA) quedan señalados para que el equipo los revise y confirme. Recomendado: revisar `scratch/revision_nuevas.md` y ajustar `valoracion_final.csv`.
+  - No se llamó al LLM. No se modificaron `evaluacion/preguntas.json` ni `plantillas/hipotesis.md`. No se ejecutó `git commit` ni `git push`.
+---
+
+### Tarea: Resolución del conflicto de merge en hipotesis.md y actualización de la guía
+- **Fecha:** 2026-11-22 (UTC-5)
+- **Herramienta:** Kiro CLI
+- **Solicitud del usuario:**
+  - Resolver los marcadores de conflicto de Git (`<<<<<<<`, `=======`, `>>>>>>>`) que habían quedado sin cerrar en `plantillas/hipotesis.md`, conservando la versión "Stashed changes" (la más detallada), elegida por el usuario.
+  - Actualizar la guía de sustentación con los números reales de las corridas.
+- **Qué generó / modificó:**
+  - `plantillas/hipotesis.md`: se eliminaron los marcadores de conflicto y la versión "Updated upstream"; quedó solo la versión elegida. **No se alteró el texto de las hipótesis** (solo se resolvió el conflicto de merge). Verificado: 0 marcadores restantes.
+  - `informe/guia_sustentacion.md` (documento personal, en `.gitignore`): actualizado con la tabla de resultados real de las 6 configuraciones, la explicación de la desviación del modelo (Gemma → lightning), los resultados de C0/R1/R2/B_EMB/B_LLM y la tabla de respuestas rápidas.
+- **Validación realizada:**
+  - `grep` confirma 0 marcadores de conflicto en `hipotesis.md`.
+  - La guía no contiene referencias obsoletas al estado de cuota; sigue ignorada por git.
+  - No se llamó al LLM. No se tocó `evaluacion/preguntas.json`. El cambio en `hipotesis.md` fue solo la resolución del conflicto a petición expresa del usuario. No se ejecutó `git commit` ni `git push`.
+---
+
 
 
 
