@@ -1,0 +1,78 @@
+flowchart TD
+    %% Estilos generales
+    classDef base fill:#f8fafc,stroke:#334155,stroke-width:1.5px,color:#0f172a;
+    classDef corpus fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0369a1;
+    classDef varR1 fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#92400e;
+    classDef varR2 fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#15803d;
+    classDef varC0 fill:#f3e8ff,stroke:#9333ea,stroke-width:2px,stroke-dasharray: 4 4,color:#6b21a8;
+    classDef varB fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#991b1b;
+    classDef output fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#1e293b;
+
+    subgraph INGESTA ["1. Ingesta y Procesamiento del Corpus"]
+        D1["Corpus Documental<br/>(PDF, DOCX, MD)"]:::corpus
+        D2["Extracción e Ingesta<br/>con Localizadores<br/>(página, sección, línea)"]:::base
+        D1 --> D2
+    end
+
+    subgraph FRAGMENTACION ["2. Fragmentación (Chunking)"]
+        F1["Fragmentación Fija<br/><b>R0, R2, C0, B:</b> 400 tok, solape 60"]:::base
+        F2["<b>[Variación R1]</b><br/>Fragmentos Pequeños<br/>200 tok, solape 30"]:::varR1
+        D2 --> F1
+        D2 -.-> F2
+    end
+
+    subgraph INDEXACION ["3. Vectorización e Indexación"]
+        E1["Modelo Embeddings Base<br/><b>R0, R1, R2, C0, B_LLM:</b><br/>multilingual-e5-small (384d)"]:::base
+        E2["<b>[Variación B: B_EMB]</b><br/>Modelo Alternativo<br/>BAAI/bge-m3 (1024d)"]:::varB
+        IDX[("Índice Vectorial Denso<br/>(Normalizado L2 / Coseno)")]:::base
+        
+        F1 --> E1
+        F2 -.-> E1
+        F1 -.-> E2
+        E1 --> IDX
+        E2 -.-> IDX
+    end
+
+    subgraph CONSULTA ["4. Consulta y Recuperación"]
+        Q["Pregunta del Usuario<br/>(Directa, Multidocumento, Sin respuesta)"]:::base
+        R_BASE["Recuperación Top-k Base<br/><b>R0, R1, B:</b> k = 4 fragmentos"]:::base
+        R_K8["<b>[Variación R2]</b><br/>Recuperación Ampliada<br/>k = 8 fragmentos"]:::varR2
+        
+        Q --> R_BASE
+        Q -.-> R_K8
+        IDX --> R_BASE
+        IDX --> R_K8
+    end
+
+    subgraph CONTEXTO ["5. Ensamblado de Contexto"]
+        CTX["Contexto con Límite Máximo<br/>Etiquetas [F1]..[Fk] + Localizador<br/><b>Límite estricto: 2400 tokens</b><br/>(Recorte si excede)"]:::base
+        R_BASE --> CTX
+        R_K8 -.-> CTX
+    end
+
+    subgraph GENERACION ["6. Inferencia y Generación"]
+        PROMPT["Prompt del Sistema<br/>- Regla: solo información de contexto<br/>- Citar [F#] tras cada afirmación<br/>- Abstenerse si falta evidencia"]:::base
+        
+        LLM1["LLM Principal<br/><b>R0, R1, R2, C0, B_EMB:</b><br/>google/gemma-4-31b-it:free<br/>(temp=0.0, máx=512 tok, seed=42)"]:::base
+        LLM2["<b>[Variación B: B_LLM]</b><br/>LLM Alternativo<br/>nvidia/nemotron-3-ultra-550b-a55b:free<br/>(temp=0.0, máx=512 tok, seed=42)"]:::varB
+        
+        CTX --> PROMPT
+        PROMPT --> LLM1
+        PROMPT -.-> LLM2
+    end
+
+    subgraph CAMINO_C0 ["Variación C0: Línea Base Sin RAG"]
+        C0_NODE["<b>[Variación C0]</b><br/>Sin Recuperación ni Contexto (k=0)<br/>Prompt directo sin documentos"]:::varC0
+        Q -.-> C0_NODE
+        C0_NODE -.-> LLM1
+    end
+
+    subgraph RESPUESTA ["7. Salida del Sistema"]
+        RESP_OK["Respuesta Fáctica Respaldada<br/>Respuesta precisa y completa<br/>con citas documentales [F#]"]:::output
+        RESP_ABS["Abstención Contractual<br/>EVIDENCIA INSUFICIENTE:<br/>(pregunta sin respuesta / fuera de corpus)"]:::output
+        
+        LLM1 --> RESP_OK
+        LLM1 --> RESP_ABS
+        LLM2 -.-> RESP_OK
+        LLM2 -.-> RESP_ABS
+    end
