@@ -2,3 +2,7 @@
 {"timestamp": "2026-11-21T23:49:11.770733+00:00", "configuracion": "R0", "pregunta_id": "D1", "intento": 2, "error": "RateLimitError: Error code: 429 - Provider returned error"}
 {"timestamp": "2026-11-21T23:49:31.534213+00:00", "configuracion": "R0", "pregunta_id": "D1", "intento": 3, "error": "RateLimitError: Error code: 429 - Provider returned error"}
 {"timestamp": "2026-11-21T23:49:58.465335+00:00", "configuracion": "R0", "pregunta_id": "D1", "intento": 4, "error": "RateLimitError: Error code: 429 - Provider returned error"}
+{"timestamp": "2026-11-22T00:05:15.870934+00:00", "configuracion": "R0", "pregunta_id": "D1", "intento": 1, "error": "RateLimitError: Error code: 429 - Provider returned error"}
+{"timestamp": "2026-11-22T00:05:27.545696+00:00", "configuracion": "R0", "pregunta_id": "D1", "intento": 2, "error": "RateLimitError: Error code: 429 - Provider returned error"}
+{"timestamp": "2026-11-22T00:05:46.593388+00:00", "configuracion": "R0", "pregunta_id": "D1", "intento": 3, "error": "RateLimitError: Error code: 429 - Provider returned error"}
+{"timestamp": "2026-11-22T00:06:14.342659+00:00", "configuracion": "R0", "pregunta_id": "D1", "intento": 4, "error": "RateLimitError: Error code: 429 - Provider returned error"}
