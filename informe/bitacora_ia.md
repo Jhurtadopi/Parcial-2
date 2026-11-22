@@ -126,3 +126,20 @@ Este documento sirve de evidencia para la **Sección 11 del Informe Final: Decla
   - Verificación de consistencia cruzada contra las fórmulas y filtros de la sección 10 del cuaderno `proyecto_rag.ipynb` (`valoracion_final.csv`, cálculo de respaldo sobre respuestas sustantivas, y métricas de corrección y abstención).
   - No se llamó a la API del LLM. No se leyeron credenciales ni claves. No se ejecutó ningún `git commit` ni `git push`.
 ---
+
+### Tarea: Intento de ejecución de corridas finales y detención preventiva por cuota (429)
+- **Fecha:** 2026-11-21 18:50 (UTC-5)
+- **Herramienta:** Antigravity (Gemini 3.8 Flash)
+- **Solicitud del usuario:**
+  - Tras verificar tag `congelado`, árbol de git limpio y clave cargada, ejecutar las 54 corridas finales sin modificar parámetros (A: R0, R1, R2, C0 = 36; B: B_EMB, B_LLM = 18).
+  - Ejecutar primero A y luego B sobre copia en `scratch/` con la raíz del repo como directorio de trabajo y `EJECUTAR_CORRIDAS=True`.
+  - Instrucción explícita: *"Si hay límite de cuota, detente y avísame: el ejecutor es reanudable. No cambies prompts, modelos ni parámetros para 'arreglar' fallos."*
+- **Qué generó / modificó:**
+  - `scratch/ejecutar_corridas.py`: Script ejecutor respetando la lógica y parámetros de `proyecto_rag.ipynb`.
+  - `resultados/fallos.jsonl`: Registro de los 4 intentos fallidos de R0/D1 por error HTTP 429 de OpenRouter.
+- **Validación y Hallazgos:**
+  - Creación del tag `congelado` en git apuntando al commit con preguntas e hipótesis inalterables.
+  - Al iniciar el Experimento A con `R0/D1` (`google/gemma-4-31b-it:free`), OpenRouter retornó consistentemente `RateLimitError: Error code: 429 - Provider returned error` durante los 4 intentos configurados (`MAX_INTENTOS = 4`) debido a la saturación del pool compartido aguas arriba (Google AI Studio).
+  - Siguiendo la instrucción estricta del usuario y la regla de no cambiar modelos ni parámetros, el ejecutor activó la **detención preventiva inmediata** sin continuar con Experimento B ni saturar la API.
+  - No se generaron archivos de resultados inconsistentes y el pipeline permanece 100 % preparado para reanudar cuando el pool se desocupe o el usuario lo indique.
+---
