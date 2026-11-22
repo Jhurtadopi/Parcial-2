@@ -218,4 +218,55 @@ Este documento sirve de evidencia para la **Sección 11 del Informe Final: Decla
   - No se realizaron llamadas al LLM. No se modificaron archivos congelados ni credenciales.
 ---
 
+### Tarea: Diagrama de flujo de arquitectura y pipeline RAG (informe/flujo.mmd y flujo.png)
+- **Fecha:** 2026-11-21 19:43 (UTC-5)
+- **Herramienta:** Antigravity (Gemini 3.8 Flash)
+- **Solicitud del usuario:**
+  - Crear `informe/flujo.mmd` (Mermaid) con el flujo completo: corpus (PDF/DOCX/MD) → ingesta con localizadores → fragmentación → embeddings → índice → recuperación top-k → contexto con límite → prompt → LLM → respuesta con citas o abstención.
+  - Marcar dónde cambian las variantes experimentales: R1 (tamaño de fragmento), R2 (amplitud top-k), C0 (línea base sin RAG) y B (B_EMB en embeddings y B_LLM en modelo generador).
+  - Exportar el diagrama a imagen de alta resolución: `informe/flujo.png`.
+- **Qué generó / modificó:**
+  - `informe/flujo.mmd`: Definición estructurada en sintaxis Mermaid con subgrafos por etapas y estilos visuales diferenciados para cada variación experimental.
+  - `informe/flujo.png`: Imagen rasterizada de alta definición (escala 2x, fondo blanco) generada con Mermaid CLI y Google Chrome Headless.
+- **Validación realizada:**
+  - Inspección visual directa del archivo `informe/flujo.png` confirmando legibilidad tipográfica, renderizado sin superposiciones y correcta conexión de todas las ramas.
+  - No se realizaron llamadas al LLM. No se modificaron archivos congelados ni credenciales.
+---
+
+### Tarea: Auditoría de consistencia de informe frente a tabla_resultados.csv y corridas.jsonl
+- **Fecha:** 2026-11-21 19:52 (UTC-5)
+- **Herramienta:** Antigravity (Gemini 3.8 Flash)
+- **Solicitud del usuario:**
+  - Auditar `informe/informe.md`: para cada cifra y cada afirmación comparativa, verificar contra `resultados/tabla_resultados.csv` y `corridas.jsonl`.
+  - Listar inconsistencias, afirmaciones sin respaldo e hipótesis que el informe declare como "cumplidas" sin datos de soporte.
+  - Restricción: No reescribir, solo reportar.
+- **Qué generó / modificó:**
+  - Verificación en el sistema de archivos: Se constató que el archivo `informe/informe.md` aún no existe físicamente en el repositorio.
+  - Auditoría preventiva de contraste fáctico: Análisis sistemático de las 5 hipótesis de `plantillas/hipotesis.md` frente a las únicas 9 corridas registradas (`B_LLM`) para identificar qué afirmaciones tendrían o no respaldo experimental.
+- **Validación realizada:**
+  - Cruce de datos contra `resultados/tabla_resultados.csv` y `resultados/corridas.jsonl`.
+### Tarea: Preparación del paquete final de entrega y verificación de reproducibilidad
+- **Fecha:** 2026-11-21 20:08 (UTC-5)
+- **Herramienta:** Antigravity (Gemini 3.8 Flash)
+- **Solicitud del usuario:**
+  - Clonar el repo en `/tmp` y ejecutar `proyecto_rag.ipynb` de principio a fin con `EJECUTAR_CORRIDAS=False` (reutilizando `resultados/`). Comprobar si reproduce `resultados/tabla_resultados.csv` y reportar diferencias.
+  - Dejar `proyecto_rag.ipynb` con celdas de salida limpias y regenerar `proyecto_rag_ejecutado.ipynb` con las salidas finales limpias (sin rutas locales, sin barras de descarga interactivas, sin claves).
+  - Actualizar `README.md` con pasos de instalación y ejecución, configuración segura de credenciales, mapa de carpetas y tabla de configuraciones.
+  - Verificar la checklist de `PLAN_TRABAJO.md §9`: sin `.env`, sin `.claude/` ni `.agent/`, índices ignorados, hipótesis con fecha anterior a las corridas.
+  - Generar `entrega/Parcial-2.zip` mediante `git archive` (sin historial `.git`).
+- **Qué generó / modificó:**
+  - `proyecto_rag.ipynb`: Cuaderno principal formateado con salidas limpias (0 celdas ejecutadas residuales).
+  - `proyecto_rag_ejecutado.ipynb`: Cuaderno reproducido de principio a fin; se sanearon widgets de descarga de HuggingFace y rutas locales de usuario.
+  - `README.md`: Documentación completa reestructurada con guía paso a paso para Colab y local, directrices de seguridad de API keys, mapa de carpetas exhaustivo y especificación de configuraciones.
+  - `entrega/Parcial-2.zip`: Archivo comprimido con los 45 archivos de entrega (656 KB), excluyendo `.git`, `.env`, cachés e índices.
+- **Validación realizada:**
+  - Clonación limpia en `/tmp/repo_test` y ejecución completa con `nbconvert`: `diff` contra `resultados/tabla_resultados.csv` arrojó exactamente 0 diferencias (100 % idéntico).
+  - Verificación por expresiones regulares: 0 ocurrencias de `/home/`, `/tmp/`, `sk-or` o barras interactivas en los cuadernos.
+  - Verificación de la checklist de §9: Sin archivos prohibidos y fecha de hipótesis (Sat Nov 21 18:28) anterior en 44 minutos a la primera corrida (Sat Nov 21 19:16 / 2026-11-22 00:16 UTC).
+  - Inspección del contenido de `entrega/Parcial-2.zip` confirmando la presencia íntegra de los entregables y ausencia de `.git` y `.env`.
+---
+
+
+
+
 
