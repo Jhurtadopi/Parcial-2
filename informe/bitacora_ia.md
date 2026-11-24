@@ -325,3 +325,48 @@ Este documento sirve de evidencia para la **Sección 11 del Informe Final: Decla
 
 
 
+
+### Tarea: Generación del informe final en formato DOCX
+- **Fecha:** 2026-11-23 (UTC-5)
+- **Herramienta:** Kiro CLI
+- **Solicitud del usuario:** Generar el informe del proyecto en formato .doc siguiendo las especificaciones del enunciado.
+- **Qué generó / modificó:**
+  - `informe/Informe_Proyecto_RAG.docx`: informe completo con las 11 secciones de `plantillas/informe_estructura.md` (caso de uso, esquema del flujo, implementación y entorno, configuraciones, hipótesis, protocolo de evaluación, resultados, análisis, configuración recomendada, limitaciones y declaración de uso de IA) más anexos. 6 tablas y el diagrama `flujo.png` incrustado.
+  - `scratch/generar_informe.py` y `scratch/agregar.py`: script generador del DOCX (python-docx) y script de agregación de métricas. Archivos de trabajo en `scratch/`.
+- **Validación realizada:**
+  - Todas las cifras de la tabla de resultados (cobertura, corrección, respaldo de citas, abstención) se recalcularon con un script sobre `resultados/corridas.jsonl` y `evaluacion/valoracion_final.csv`, contrastadas con la rúbrica. Resultado: R0 5/5/5/2·3; R1 4/5/4/3·3; R2 5/5/4/3·3 (recorte 9/9); C0 corrección 0/6, abstención 3/3; B_EMB 3/4/2·5/3·3; B_LLM 5/6/6/3·3.
+  - Tiempos medios y recortes tomados de `corridas.jsonl`.
+  - IDs de modelos verificados contra las corridas: LLM base nvidia/nemotron-3.5-lightning:free (45 corridas) y alterno nvidia/nemotron-3-ultra-550b-a55b:free (9). Se detectó que `flujo.png` muestra un LLM antiguo (gemma-4-31b-it:free); el informe usa el modelo real de las corridas y añade una nota aclaratoria.
+  - No se llamó al LLM (0 llamadas). No se modificó `evaluacion/preguntas.json` ni `plantillas/hipotesis.md`. No se ejecutó git commit ni push.
+---
+
+### Tarea: Aplicar la plantilla institucional UN al informe
+- **Fecha:** 2026-11-23 (UTC-5)
+- **Herramienta:** Kiro CLI
+- **Solicitud del usuario:** Aplicar la plantilla "Copia de 1. Plantilla Trabajos UN_mod.docx" al informe generado.
+- **Qué generó / modificó:**
+  - `informe/Informe_Proyecto_RAG.docx`: regenerado tomando la plantilla UN como documento base, de modo que hereda sus estilos (fuente Helvetica Neue, Heading 1/2, normal), el escudo del encabezado, el pie de página institucional y la portada (universidad, sede, facultad, departamento). Se rellenó la portada con el título del proyecto, subtítulo, "Presentado por:" (marcadores [Nombre integrante 1..3] para completar a mano) y la fecha. Las 11 secciones + anexos quedan con los estilos de la plantilla; 6 tablas con bordes y el diagrama flujo.png incrustado.
+  - `scratch/generar_informe.py`: actualizado para construir sobre la plantilla. Se normalizaron los márgenes float heredados de Google Docs (rompían add_table).
+- **Validación realizada:**
+  - Conversión a PDF con LibreOffice sin errores (12 páginas); inspección visual de portada y página de contenido: estilos, viñetas, tablas, escudo y pie institucional correctos.
+  - Verificado por script: 11 Heading 1 (secciones 1-11) + Anexos, 6 tablas, diagrama incrustado, portada con los datos del proyecto.
+  - Las cifras de resultados no cambiaron (mismas que la versión anterior, recalculadas desde corridas.jsonl y valoracion_final.csv). No se llamó al LLM. No se modificó preguntas.json ni hipotesis.md. No se hizo git commit ni push.
+- **Pendiente del usuario:** reemplazar los marcadores [Nombre integrante 1..3] con los nombres reales y ajustar la fecha si corresponde.
+---
+
+### Tarea: Diagrama del flujo RAG legible
+- **Fecha:** 2026-11-23 (UTC-5)
+- **Herramienta:** Kiro CLI
+- **Solicitud del usuario:** Hacer el diagrama legible y agregarlo al informe.
+- **Qué generó / modificó:**
+  - `informe/flujo.mmd`: rehecho en orientación horizontal (flowchart LR) para legibilidad; se CORRIGIÓ el LLM base de "google/gemma-4-31b-it:free" (dato antiguo) a "nvidia/nemotron-3.5-lightning:free", que es el modelo real de las 54 corridas.
+  - `informe/flujo.png`: renderizado en alta resolución (8727x1845 px, scale 3) con @mermaid-js/mermaid-cli (vía npx, usando el chromium del sistema en /usr/lib/chromium/chromium).
+  - `informe/mermaid-config.json`: config de render (fuente 20px, espaciado).
+  - `informe/Informe_Proyecto_RAG.docx`: el diagrama se inserta en una página horizontal (landscape) a ancho completo, con pie "Figura 1"; el resto del documento vuelve a vertical. Se quitó la nota aclaratoria sobre el LLM (ya no hace falta porque el diagrama trae el modelo correcto).
+  - `scratch/generar_informe.py`: actualizado para la página landscape del diagrama.
+- **Validación realizada:**
+  - Inspección visual del PNG: 7 etapas del flujo con colores por variante (R1 naranja, R2 verde, C0 morado punteado, B rojo); texto legible.
+  - Conversión a PDF con LibreOffice sin errores (12 páginas); verificado que la sección del diagrama queda en landscape (secciones: portrait, landscape, portrait).
+  - LLM del diagrama contrastado contra resultados/corridas.jsonl (nemotron-3.5-lightning en 45 corridas).
+  - No se llamó al LLM. No se modificó preguntas.json ni hipotesis.md. No se hizo git commit ni push.
+---
